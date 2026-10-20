@@ -1,0 +1,22 @@
+{
+  "name": "opencode-murmure",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Native OpenCode V2 STT/TTS connector to local Murmure Voice",
+  "exports": {
+    ".": "./src/index.ts",
+    "./rpc": "./src/rpc.ts"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run test && npm run typecheck"
+  },
+  "dependencies": {
+    "@opencode/plugin": "2.0.29"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}
