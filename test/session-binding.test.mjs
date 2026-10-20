@@ -43,3 +43,13 @@ test("returns copies of current binding, avoiding caller mutation", () => {
   current.directory = "/other"
   assert.deepEqual(b.current(), {directory:"/work",sessionID:"s"})
 })
+
+test("buffer saturation fails closed instead of replaying old parts", () => {
+  const b = new SessionBinding()
+  b.select({directory:"/work",sessionID:"s"})
+  for (let i = 0; i < 2048; i++) {
+    assert.equal(b.consume({directory:"/work",sessionID:"s",messageID:"m",partID:String(i),revision:"0"}), true)
+  }
+  assert.equal(b.consume({directory:"/work",sessionID:"s",messageID:"m",partID:"0",revision:"0"}), false)
+  assert.equal(b.consume({directory:"/work",sessionID:"s",messageID:"m",partID:"overflow",revision:"0"}), false)
+})
