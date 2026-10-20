@@ -46,4 +46,5 @@ export const MurmureVoiceRpc = Rpc.define({
       },
     },
   },
+  events: {},
 } as const)
