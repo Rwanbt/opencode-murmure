@@ -24,6 +24,7 @@ export const MurmureVoiceRpc = Rpc.define({
       },
     },
     clearSession: {
+      input: { type: "object", properties: {}, additionalProperties: false },
       output: {
         type: "object",
         properties: { selected: { type: "boolean" } },
@@ -32,6 +33,7 @@ export const MurmureVoiceRpc = Rpc.define({
       },
     },
     getSession: {
+      input: { type: "object", properties: {}, additionalProperties: false },
       output: {
         type: "object",
         properties: {
@@ -44,4 +46,4 @@ export const MurmureVoiceRpc = Rpc.define({
       },
     },
   },
-})
+} as const)
