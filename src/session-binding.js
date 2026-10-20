@@ -55,7 +55,10 @@ export class SessionBinding {
     const key = JSON.stringify([part.messageID, part.partID, part.revision])
     if (this.#consumed.has(key)) return false
     // Bound memory: do not keep a replay history beyond one live window.
-    if (this.#consumed.size >= 2048) this.#consumed.clear()
+    // Fail closed when the live buffer fills. Clearing it would allow old
+    // parts to be replayed as new audio. A future durable cursor can replace
+    // this bound without silently weakening the deduplication guarantee.
+    if (this.#consumed.size >= 2048) return false
     this.#consumed.add(key)
     return true
   }
